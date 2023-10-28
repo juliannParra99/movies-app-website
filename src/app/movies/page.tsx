@@ -15,3 +15,33 @@ export interface Item {
   releaseYear: number;
 }
 
+const data = (rawData.entries as Item[])
+  .filter((Item) => Item.releaseYear >= 2010 && Item.programType == "movie")
+  .slice(0, 21)
+  .sort((a, b) => a.title.localeCompare(b.title));
+
+export default function MoviesPage() {
+  return (
+    <section className="grid gap-4">
+      <article className="bg-slate-800 py-4 text-xl text-white shadow-md">
+        <div className="m-auto max-w-screen-md px-4">Popular Movies</div>
+      </article>
+      <article className="m-auto max-w-screen-md p-4">
+        <div className="gap-4 grid-cols-[repeat(auto-fill,minmax(180px,1fr))] grid">
+          {data.map((Item) => (
+            <div key={Item.title} className="grid gap-2">
+              <img
+                alt={Item.title}
+                height={Item.images["Poster Art"].height}
+                width={Item.images["Poster Art"].width}
+                src={Item.images["Poster Art"].url}
+              />
+
+              <p className="leading-5">{Item.title} </p>
+            </div>
+          ))}
+        </div>
+      </article>
+    </section>
+  );
+}
